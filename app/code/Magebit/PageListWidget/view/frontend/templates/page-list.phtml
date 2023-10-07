@@ -1,0 +1,32 @@
+<?php
+/**
+* if widget.xml parameter 'display_mode' option value = 1 then show all CMS pages;
+* if widget.xml parameter 'display_mode' option value = 0 then show only selected CMS pages
+*/
+?>
+
+<h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
+
+<ul>
+    <?php if ($block->getDisplayMode() == 1): ?>
+        <?php $cmsPages = $block->getCmsPages(); ?>
+        <?php foreach ($cmsPages as $page): ?>
+            <li>
+                <a href="<?php echo $block->getUrl('cms/page/view', ['page_id' => $page->getId()]); ?>">
+                    <?php echo $page->getTitle(); ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    <?php elseif ($block->getDisplayMode() == 0): ?>
+        <?php foreach ($block->getSelectedPageIds() as $pageId): ?>
+            <?php $page = $block->getCmsPageById($pageId); ?>
+            <?php if ($page): ?>
+                <li>
+                    <a href="<?php echo $block->getUrl('cms/page/view', ['page_id' => $page->getId()]); ?>">
+                        <?php echo $page->getTitle(); ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</ul>

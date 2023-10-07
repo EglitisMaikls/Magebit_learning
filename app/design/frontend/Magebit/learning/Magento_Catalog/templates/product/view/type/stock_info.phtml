@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+use Magento\Framework\View\Element\Template;
+/** @var Template $block */
+
+/* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+<?php  $stock = $_product->getData('quantity_and_stock_status'); ?>
+
+<?php if ($block->displayProductStockStatus()) :?>
+    <?php if ($_product->isAvailable()) :?>
+        <div class="get_stock_data" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <img width="11px" height="8px" src="<?= $block->escapeUrl($block->getViewFileUrl($block->getData('path_image'))); ?>"
+                 alt="<?= $block->escapeHtmlAttr($block->getData('image_alt_text')); ?>" />
+            <?= $block->escapeHtml(__('IN STOCK &nbsp;')) ?>
+            <span><?= $block->escapeHtml(__( $stock['qty'] . ' items available')) ?></span>
+        </div>
+    <?php else :?>
+        <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
