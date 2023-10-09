@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Uses 2 source models:
+ *
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+
+* Uses 2 source models:
 * Magento\Config\Model\Config\Source\Yesno - to show/hide additional options on admin panel
 * Magento\Cms\Model\Config\Source\Page - to display the list of CMS pages on admin panel
 -->

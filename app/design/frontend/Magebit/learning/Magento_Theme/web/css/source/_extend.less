@@ -184,33 +184,34 @@
         margin: 0;
         padding: 0;
     }
-    .get_stock_data {
+    .get-stock-data {
         padding-left: 20px;
         display: flex;
         align-items: center;
         justify-content: left;
         font: normal normal bold 14px/19px Open Sans;
         color: #333333;
-        img {
+    }
+    .stock-checkbox {
             background: url('@{baseDir}images/check-mark-black-outline-svgrepo-com.svg');
             background-size: cover;
             width:11px;
             height:11px;
             margin-right:3px;
-        }
-
-        span {
+            border:0;
+    }
+    .stock-availability {
             font: normal normal normal 14px/19px Open Sans;
             font-weight:normal;
-        }
     }
-
 }
+
 /*  _____________________________________________
               Upsell container styling
 _____________________________________________*/
 
 .magebit-product-simple.page-layout-1column .upsell {
+
         .list-custom-title {
             font: normal normal bold 16px/22px Open Sans;
             padding-bottom: 8px;
@@ -224,6 +225,9 @@ _____________________________________________*/
         .product-reviews-summary{
             margin:0 0 17px 0;
         }
+        .product-image-photo {
+            position:relative;
+        }
         .products { margin: 0 }
         .products-grid {
             .product-item-info:hover,
@@ -235,7 +239,14 @@ _____________________________________________*/
             }
 
             .product-image-container {
+                width:88px!important;
                 margin-right: 20px;
+
+                .product-image-wrapper {
+                    height:110px;
+                    padding-bottom:0 !important;
+                    width:88px !important;
+                }
             }
 
             .product-item {
@@ -244,6 +255,7 @@ _____________________________________________*/
                 display: flex;
                 border: none;
                 box-shadow: none;
+
                 .price-box{
                     margin:0;
                 }
@@ -285,7 +297,8 @@ _____________________________________________*/
 /*  _____________________________________________
              Related products styling
   _____________________________________________*/
-    @product-item__hover__box-shadow: 0px 0px 8px #00000029;
+
+.magebit-product-simple.page-layout-1column {
 
     .block.related {
         clear: both;
@@ -352,16 +365,16 @@ _____________________________________________*/
         }
     }
 
-/*  _____________________________________________
+    /*  _____________________________________________
              Related products hover styling
   _____________________________________________*/
+
+    @product-item__hover__box-shadow: 0px 0px 8px #00000029;
     .products-grid {
         .product-item-info {
             &:hover,
             &:active {
-                border: 0px solid;
-                margin: 0;
-                padding: 0;
+            box-shadow: 0 0 8px #00000029;
             }
             &:not(:hover):not(.active) {
                 .action.primary {
@@ -373,6 +386,10 @@ _____________________________________________*/
             }
         }
     }
+
+}
+
+
 
 
 

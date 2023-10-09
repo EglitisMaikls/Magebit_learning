@@ -1,55 +1,59 @@
 <?php
 /**
- * Product additional attributes template
- * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magebit\PageListWidget\Block\Widget\PageList $block */
 
 ?>
 
 <?php
-$_product = $block->getProduct();
-$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$product = $block->getProduct();
+// phpcs:disable Magento2.Templates.ThisInTemplate
+$helper = $this->helper(Magento\Catalog\Helper\Output::class);
 $importantAttributes = ['color', 'dimensions', 'material'];
-$longDescription = $_product->getData('description');
-$description = $_product->getData('short_description');
+$longDescription = $product->getData('description');
+$description = $product->getData('short_description');
 $count = 0;
 $otherAttributes = [];
 ?>
 
 
-<?php if ($_additional = $block->getAdditionalData()) :?>
+<?php if ($additional = $block->getAdditionalData()):?>
 <div id="custom-details">
-    <?php foreach ($_additional as $_data) :?>
-        <?php if (in_array($_data['code'], $importantAttributes)) : ?>
+    <?php foreach ($additional as $_data):?>
+        <?php if (in_array($_data['code'], $importantAttributes)): ?>
             <ul>
-                <li><strong><?= $block->escapeHtml($_data['label']) ?>:</strong>
-                    <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></li>
+                <li><strong><?= $escaper->escapeHtml($block->escapeHtml($_data['label'])) ?>:</strong>
+                    <?= /* @noEscape */ $helper->productAttribute($product, $_data['value'], $_data['code']) ?></li>
             </ul>
             <?php $count++;?>
-        <?php else : ?>
+        <?php else: ?>
             <?php $otherAttributes[] = $_data; ?>
-        <?php endif; endforeach; ?>
-
-    <?php foreach ($otherAttributes as $_data) :?>
-        <?php if ($count < 3) : ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php foreach ($otherAttributes as $_data):?>
+        <?php if ($count < 3): ?>
             <ul>
-                <li><strong><?= $block->escapeHtml($_data['label']) ?>:</strong>
-                    <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></li>
+                <li><strong><?= $escaper->escapeHtml($block->escapeHtml($_data['label'])) ?>:</strong>
+                    <?= /* @noEscape */ $helper->productAttribute($product, $_data['value'], $_data['code']) ?></li>
             </ul>
             <?php $count++; ?>
-        <?php endif; endforeach; ?>
-
-
-    <?php if(!empty($description) || !empty($longDescription)): ?>
-                <div id="custom-description">
-                    <?php if (empty($description) && !empty($longDescription)): ?>
-                        <?php $sentences = preg_split('/(?<=[.?!])\s+/', $longDescription); ?>
-                        <?php $description = strip_tags(html_entity_decode($sentences[0])); ?>
-                    <?php endif; ?>
-
-                    <?= $description = strip_tags(html_entity_decode($description)) ?>
-                </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if (!empty($description) || !empty($longDescription)): ?>
+        <div id="custom-description">
+            <?php if (empty($description) && !empty($longDescription)): ?>
+                <?php $sentences = preg_split('/(?<=[.?!])\s+/', $longDescription); ?>
+                <?php $description = strip_tags(html_entity_decode($sentences[0])); ?>
+            <?php endif; ?>
+            <?= /* @noEscape */ $description = $product->getDescription(); ?>
+        </div>
     <?php endif;?>
 </div>
 <?php endif;?>

@@ -1,14 +1,18 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 /** @var $block \Magento\Catalog\Block\Product\View */
 ?>
-<?php $_product = $block->getProduct(); ?>
+<?php $product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
-<?php if ($_product->isSaleable()) :?>
+<?php if ($product->isSaleable()):?>
 
     <div class="box-tocart">
         <div class="fieldset">
@@ -24,8 +28,8 @@
                                             "qty-counter": {
                                                 "component": "qty-counter",
                                                 "config": {
-                                                    "qty": <?php echo $block->getProductDefaultQty() * 1 ?>,
-                                            "dataValidate": <?php echo json_encode($block->getQuantityValidators()) ?>
+                                                    "qty": <?= $block->getProductDefaultQty() * 1 ?>,
+                                    "dataValidate": <?= /* @noEscape */ json_encode($block->getQuantityValidators()) ?>
                             }
                         }
                      }
@@ -39,10 +43,10 @@
             <?php endif; ?>
             <div class="actions">
                 <button type="submit"
-                        title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                        title="<?= /* @noEscape */ $buttonTitle ?>"
                         class="action primary tocart"
                         id="product-addtocart-button">
-                    <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+                    <span><?= /* @noEscape */ $buttonTitle ?></span>
                 </button>
 
             </div>
