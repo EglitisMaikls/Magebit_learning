@@ -9,7 +9,6 @@
  */
 /** @var \Magento\Framework\Escaper $escaper */
 /** @var \Magebit\PageListWidget\Block\Widget\PageList $block */
-
 ?>
 
 <?php
@@ -22,7 +21,6 @@ $description = $product->getData('short_description');
 $count = 0;
 $otherAttributes = [];
 ?>
-
 
 <?php if ($additional = $block->getAdditionalData()):?>
 <div id="custom-details">
@@ -57,5 +55,3 @@ $otherAttributes = [];
     <?php endif;?>
 </div>
 <?php endif;?>
-
-

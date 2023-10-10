@@ -13,15 +13,11 @@
 
 /** @var Escaper $escaper */
 /** @var PageList $block */
-
 use Magebit\PageListWidget\Block\Widget\PageList;
 use Magento\Framework\Escaper;
-
 ?>
 
-
 <h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
-
 <ul>
     <?php if ($block->getDisplayMode() === 1): ?>
         <?php $cmsPages = $block->getCmsPages(); ?>

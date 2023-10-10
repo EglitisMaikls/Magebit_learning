@@ -27,12 +27,7 @@ class PageList extends Template implements BlockInterface
      *
      * @var string
      */
-    protected $_template = "page-list.phtml";
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    protected SearchCriteriaBuilder $searchCriteriaBuilder;
+    protected $_template = 'page-list.phtml';
 
     /**
      * @param Context $context
@@ -40,14 +35,12 @@ class PageList extends Template implements BlockInterface
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param array $data
      */
-
     public function __construct(
         Context $context,
         private readonly PageRepositoryInterface $pageRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
+        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
         array $data = []
     ) {
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         parent::__construct($context, $data);
     }
 
