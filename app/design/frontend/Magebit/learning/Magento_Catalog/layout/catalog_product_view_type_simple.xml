@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+ *
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="magebit-product-simple"/>
+
+        <move element="product.attributes" destination="product.info.main" as="new_details_position" after="product.price.tier"/>
+        <move element="product.info.upsell" destination="product.info.form.content" as="new_upsell_position" after="product.info.addtocart"/>
+        <referenceBlock name="product.info.addtocart">
+            <block class="Magento\Catalog\Block\Product\View\Type\Simple" name="product.info.simple" as="product_type_data" template="Magento_Catalog::product/view/type/stock_info.phtml" />
+        </referenceBlock>
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.wishlist" remove="true" />
+        <referenceBlock name="product.info.description" remove="true" />
+        <referenceBlock name="reviews.tab" remove="true" />
+    </body>
+</page>

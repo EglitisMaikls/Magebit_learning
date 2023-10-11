@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+
+* Uses 2 source models:
+* Magento\Config\Model\Config\Source\Yesno - to show/hide additional options on admin panel
+* Magento\Cms\Model\Config\Source\Page - to display the list of CMS pages on admin panel
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Magebit\PageListWidget\Block\Widget\PageList" id="simple_page_list">
+        <label>CMS Page List</label>
+        <description>Display either all or selected CMS pages in a list</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false">
+                <label>Title</label>
+            </parameter>
+            <parameter name="display_mode" xsi:type="select" required="true"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label>Display Mode</label>
+                <options>
+                    <option name="all" value="1">
+                        <label>All Pages</label>
+                    </option>
+                    <option name="show_selector" value="0">
+                        <label>Specific Pages</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="selected_pages" xsi:type="multiselect" required="false"
+                       source_model="Magento\Cms\Model\Config\Source\Page">
+                <label>Selected Pages</label>
+                <depends>
+                    <parameter name="display_mode" value="0" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

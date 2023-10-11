@@ -1,0 +1,57 @@
+<?php
+/**
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magebit\PageListWidget\Block\Widget\PageList $block */
+?>
+
+<?php
+$product = $block->getProduct();
+// phpcs:disable Magento2.Templates.ThisInTemplate
+$helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$importantAttributes = ['color', 'dimensions', 'material'];
+$longDescription = $product->getData('description');
+$description = $product->getData('short_description');
+$count = 0;
+$otherAttributes = [];
+?>
+
+<?php if ($additional = $block->getAdditionalData()):?>
+<div id="custom-details">
+    <?php foreach ($additional as $_data):?>
+        <?php if (in_array($_data['code'], $importantAttributes)): ?>
+            <ul>
+                <li><strong><?= $escaper->escapeHtml($block->escapeHtml($_data['label'])) ?>:</strong>
+                    <?= /* @noEscape */ $helper->productAttribute($product, $_data['value'], $_data['code']) ?></li>
+            </ul>
+            <?php $count++;?>
+        <?php else: ?>
+            <?php $otherAttributes[] = $_data; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php foreach ($otherAttributes as $_data):?>
+        <?php if ($count < 3): ?>
+            <ul>
+                <li><strong><?= $escaper->escapeHtml($block->escapeHtml($_data['label'])) ?>:</strong>
+                    <?= /* @noEscape */ $helper->productAttribute($product, $_data['value'], $_data['code']) ?></li>
+            </ul>
+            <?php $count++; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if (!empty($description) || !empty($longDescription)): ?>
+        <div id="custom-description">
+            <?php if (empty($description) && !empty($longDescription)): ?>
+                <?php $sentences = preg_split('/(?<=[.?!])\s+/', $longDescription); ?>
+                <?php $description = strip_tags(html_entity_decode($sentences[0])); ?>
+            <?php endif; ?>
+            <?= /* @noEscape */ $description = $product->getDescription(); ?>
+        </div>
+    <?php endif;?>
+</div>
+<?php endif;?>

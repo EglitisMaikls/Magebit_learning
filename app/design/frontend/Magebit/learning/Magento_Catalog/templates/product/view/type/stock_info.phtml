@@ -1,0 +1,33 @@
+<?php
+/**
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <info@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+?>
+
+<?php
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+
+<?php $product = $block->getProduct() ?>
+<?php  $stock = $product->getData('quantity_and_stock_status'); ?>
+
+<?php if ($block->displayProductStockStatus()):?>
+    <?php if ($product->isAvailable()):?>
+        <div class="get-stock-data" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <div class="stock-checkbox"></div>
+            <?= $block->escapeHtml(__('IN STOCK &nbsp;')) ?>
+            <span class="stock-availability"><?= $block->escapeHtml(__($stock['qty'] . ' items available')) ?></span>
+        </div>
+    <?php else:?>
+        <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
