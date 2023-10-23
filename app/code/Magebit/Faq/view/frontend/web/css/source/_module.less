@@ -6,24 +6,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+@color: #f0f0f0
 
 .faq-list {
     list-style: none;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 .faq-list li {
-    padding:0;
-    margin:0;
+    margin: 0;
+    padding: 0;
 }
 
 .question {
+    background: @color;
     cursor: pointer;
     display: block;
-    background: #f0f0f0;
+    margin: 0;
     padding: 10px;
-    margin:0;
     text-transform: uppercase;
 }
 
@@ -32,10 +33,10 @@
     padding: 10px 10px 20px 10px;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
     display: none;
 }
 
-input[type="checkbox"]:checked + label + .answer {
+input[type='checkbox']:checked + label + .answer {
     display: block;
 }
