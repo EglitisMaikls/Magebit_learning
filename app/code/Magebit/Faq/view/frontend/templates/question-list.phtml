@@ -1,0 +1,35 @@
+<?php
+/**
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <maikls.eglitis@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+declare(strict_types=1);
+
+/** @var Escaper $escaper */
+/** @var QuestionList $block */
+
+use Magebit\Faq\Block\QuestionList;
+use Magento\Framework\Escaper;
+
+$enabledQuestions = $block->getFaqQuestions();
+?>
+
+<?php if (!empty($enabledQuestions)): ?>
+    <ul class="faq-list">
+        <?php foreach ($enabledQuestions as $index => $question): ?>
+        <li>
+            <input type="checkbox" id="faq-<?= $escaper->escapeHtml($index); ?>">
+            <label for="faq-<?= $escaper->escapeHtml($index); ?>" class="question">
+                <?= $escaper->escapeHtml($question->getQuestion()); ?>
+            </label>
+            <div class="answer"><?= $escaper->escapeHtml($question->getAnswer()); ?></div>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p><?= $escaper->escapeHtml(__('No questions found.')); ?></p>
+<?php endif; ?>
