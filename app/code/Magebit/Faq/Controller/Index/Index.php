@@ -12,30 +12,29 @@ declare(strict_types=1);
 namespace Magebit\Faq\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\View\Result\Page;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\ResultInterface;
 
 class Index implements HttpGetActionInterface
 {
-
     /**
      * Page constructor
      *
-     * @param ResultFactory $resultFactory
+     * @param PageFactory $pageFactory
      */
     public function __construct(
-        private readonly ResultFactory $resultFactory
+        private readonly PageFactory $pageFactory
     ) {
     }
 
     /**
      * Generate and pass frontend index page
      *
-     * @return Page
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
-        $page = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $page = $this->pageFactory->create();
         $page->getConfig()->getTitle()->set(__('Frequently Asked Questions'));
         return $page;
     }

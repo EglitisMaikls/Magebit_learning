@@ -19,7 +19,7 @@ class DataProvider extends AbstractDataProvider
     /**
      * @var array
      */
-    protected $loadedData;
+    protected array $loadedData;
 
     /**
      * DataProvider constructor
@@ -35,7 +35,7 @@ class DataProvider extends AbstractDataProvider
         $name,
         $primaryFieldName,
         $requestFieldName,
-        CollectionFactory $collectionFactory,
+        private readonly CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = []
     ) {
@@ -48,12 +48,12 @@ class DataProvider extends AbstractDataProvider
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
-
+        $this->loadedData = [];
         $items = $this->collection->getItems();
         foreach ($items as $item) {
             $this->loadedData[$item->getId()] = $item->getData();

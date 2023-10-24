@@ -16,9 +16,6 @@ use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
-/**
- * Class Actions adds link to edit or delete
- */
 class QuestionActions extends Column
 {
     /**

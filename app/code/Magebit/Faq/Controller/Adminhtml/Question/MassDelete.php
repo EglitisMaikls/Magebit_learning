@@ -15,10 +15,10 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
+use Magento\Framework\Controller\ResultInterface;
 
 class MassDelete extends Action
 {
-
     /**
      * MassDelete constructor.
      *
@@ -35,9 +35,9 @@ class MassDelete extends Action
     /**
      * Execute action
      *
-     * @return ResultFactory
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         $questionIds = $this->getRequest()->getParam('selected');
 
@@ -46,8 +46,7 @@ class MassDelete extends Action
         } else {
             try {
                 foreach ($questionIds as $questionId) {
-                    $question = $this->questionRepository->getById($questionId);
-                    $this->questionRepository->delete($question);
+                    $this->questionRepository->deleteById($questionId);
                 }
                 $this->messageManager->addSuccessMessage(__('Selected item(s) have been deleted.'));
             } catch (\Exception $e) {

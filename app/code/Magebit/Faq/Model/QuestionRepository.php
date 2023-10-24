@@ -15,41 +15,49 @@ use Exception;
 use Magebit\Faq\Api\Data\QuestionInterfaceFactory;
 use Magebit\Faq\Api\Data\QuestionInterface;
 use Magebit\Faq\Api\Data\QuestionSearchResultsInterface;
+use Magebit\Faq\Api\Data\QuestionSearchResultsInterfaceFactory;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
 use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory as QuestionCollectionFactory;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\DataObject;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
     /**
      * Question repository construct
      *
+     * @param CollectionProcessorInterface $collectionProcessor
      * @param QuestionResource $resource
      * @param QuestionInterfaceFactory $questionFactory
      * @param QuestionCollectionFactory $questionCollectionFactory
+     * @param QuestionSearchResultsInterfaceFactory $questionSearchResultsInterfaceFactory
      */
     public function __construct(
+        private readonly CollectionProcessorInterface $collectionProcessor,
         private readonly QuestionResource $resource,
         private readonly QuestionInterfaceFactory $questionFactory,
-        private readonly QuestionCollectionFactory $questionCollectionFactory
+        private readonly QuestionCollectionFactory $questionCollectionFactory,
+        private readonly QuestionSearchResultsInterfaceFactory $questionSearchResultsInterfaceFactory
     ) {
     }
 
     /**
      * Gets item by its ID
      *
-     * @param int $questionId
-     * @return false|QuestionInterface
+     * @param mixed $questionId
+     * @return QuestionInterface
+     * @throws NoSuchEntityException
      */
-    public function getById($questionId)
+    public function getById(mixed $questionId): QuestionInterface
     {
         $question = $this->questionFactory->create();
         $this->resource->load($question, $questionId);
         if (!$question->getId()) {
-            return false;
+            throw new NoSuchEntityException(__('Question with id "%1" does not exist.', $questionId));
         }
         return $question;
     }
@@ -61,7 +69,7 @@ class QuestionRepository implements QuestionRepositoryInterface
      * @return void
      * @throws AlreadyExistsException
      */
-    public function save(QuestionInterface $question)
+    public function save(QuestionInterface $question): void
     {
         $this->resource->save($question);
     }
@@ -73,41 +81,44 @@ class QuestionRepository implements QuestionRepositoryInterface
      * @return void
      * @throws Exception
      */
-    public function delete(QuestionInterface $question)
+    public function delete($question): void
     {
         $this->resource->delete($question);
     }
 
     /**
-     * Method for massDelete
+     * Method for massDelete (or more effective delete)
      *
-     * @param int $questionId
+     * @param mixed $questionId
      * @return void
+     * @throws NoSuchEntityException
      * @throws Exception
      */
-    public function deleteById($questionId)
+    public function deleteById(mixed $questionId): void
     {
         $question = $this->getById($questionId);
         if ($question) {
-            $this->delete($question);
+            $this->resource->delete($question);
+        } else {
+            throw new NoSuchEntityException(__('Question with id "%1" does not exist.', $questionId));
         }
     }
 
     /**
-     * To list the questions on frontend
+     * Load Page data collection by given search criteria
      *
-     * @param array $options
-     *    - filterField: string
-     *    - filterCondition: int (number)
-     *    - orderField: string
-     *    - orderSort: string (ASC or DESC)
-     * @return DataObject []
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return QuestionSearchResultsInterface
      */
-    public function getList(array $options): array
+    public function getList(SearchCriteriaInterface $searchCriteria): QuestionSearchResultsInterface
     {
         $collection = $this->questionCollectionFactory->create();
-        $collection->addFieldToFilter($options['filterField'], $options['filterCondition']);
-        $collection->addOrder($options['orderField'], $options['orderSort']);
-        return $collection->getItems();
+        $this->collectionProcessor->process($searchCriteria, $collection);
+
+        $searchResults = $this->questionSearchResultsInterfaceFactory->create();
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+        $searchResults->setSearchCriteria($searchCriteria);
+        return $searchResults;
     }
 }

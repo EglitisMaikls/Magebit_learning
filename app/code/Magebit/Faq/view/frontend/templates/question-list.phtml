@@ -18,9 +18,9 @@ use Magento\Framework\Escaper;
 $enabledQuestions = $block->getFaqQuestions();
 ?>
 
-<?php if (!empty($enabledQuestions)): ?>
+<?php if ($enabledQuestions->getTotalCount() > 0): ?>
     <ul class="faq-list">
-        <?php foreach ($enabledQuestions as $index => $question): ?>
+        <?php foreach ($enabledQuestions->getItems() as $index => $question): ?>
         <li>
             <input type="checkbox" id="faq-<?= $escaper->escapeHtml($index); ?>">
             <label for="faq-<?= $escaper->escapeHtml($index); ?>" class="question">

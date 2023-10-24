@@ -18,7 +18,6 @@ use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 class MassDisable extends Action
 {
-
     /**
      * MassDelete constructor.
      *
@@ -37,7 +36,7 @@ class MassDisable extends Action
      *
      * @return ResultFactory
      */
-    public function execute()
+    public function execute(): ResultFactory
     {
         $questionIds = $this->getRequest()->getParam('selected');
 

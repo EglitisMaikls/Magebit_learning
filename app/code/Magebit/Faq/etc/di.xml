@@ -24,13 +24,19 @@
         </arguments>
     </type>
     <preference for="Magebit\Faq\Api\QuestionRepositoryInterface" type="Magebit\Faq\Model\QuestionRepository" />
-    <preference for="Magebit\Faq\Api\Data\QuestionSearchResultsInterface" type="Magebit\Faq\Model\QuestionRepository" />
+    <preference for="Magebit\Faq\Api\Data\QuestionSearchResultsInterface" type="Magebit\Faq\Model\QuestionSearchResults" />
     <preference for="Magebit\Faq\Api\Data\QuestionInterface" type="Magebit\Faq\Model\Question" />
-
     <type name="Magebit\Faq\Model\QuestionRepository">
         <arguments>
             <argument name="questionResource" xsi:type="object">Magebit\Faq\Model\ResourceModel\Question</argument>
             <argument name="collectionFactory" xsi:type="object">Magebit\Faq\Model\ResourceModel\Question\CollectionFactory</argument>
         </arguments>
     </type>
+
+<!--    <virtualType name="QuestionSearchResults" type="Magento\Framework\Api\SearchResults" />-->
+<!--    <type name="Magebit\Faq\Model\QuestionSearchResults">-->
+<!--        <arguments>-->
+<!--            <argument name="object" xsi:type="object">QuestionSearchResults</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
 </config>

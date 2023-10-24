@@ -18,14 +18,14 @@ interface QuestionSearchResultsInterface extends SearchResultsInterface
     /**
      * Get questions list.
      *
-     * @return \Magebit\Faq\Api\Data\QuestionInterface[]
+     * @return QuestionInterface[]
      */
     public function getItems();
 
     /**
      * Set questions list.
      *
-     * @param \Magebit\Faq\Api\Data\QuestionInterface[] $items
+     * @param QuestionInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

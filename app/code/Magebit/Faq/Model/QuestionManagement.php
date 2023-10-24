@@ -11,23 +11,24 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Model;
 
-use Magebit\Faq\Api\Data\QuestionInterfaceFactory as QuestionInterface;
 use Magebit\Faq\Api\QuestionManagementInterface;
 use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
 use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 class QuestionManagement implements QuestionManagementInterface
 {
     /**
      * Question management constructor
      *
+     * @param QuestionRepositoryInterface $repository
      * @param QuestionResource $resource
-     * @param QuestionInterface $questionFactory
      */
     public function __construct(
-        protected readonly QuestionResource $resource,
-        protected readonly QuestionInterface $questionFactory
+        protected readonly QuestionRepositoryInterface $repository,
+        protected readonly QuestionResource $resource
     ) {
     }
 
@@ -37,13 +38,14 @@ class QuestionManagement implements QuestionManagementInterface
      * @param int $questionId
      * @return void
      * @throws AlreadyExistsException
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
      */
-    public function enableQuestion($questionId)
+    public function enableQuestion(int $questionId): void
     {
-        $question = $this->questionFactory->create();
-        $this->resource->load($question, $questionId);
+        $question = $this->repository->getById($questionId);
         $question->setStatus(1);
-        $this->resource->save($question);
+        $this->repository->save($question);
     }
 
     /**
@@ -53,12 +55,12 @@ class QuestionManagement implements QuestionManagementInterface
      * @return void
      * @throws AlreadyExistsException
      * @throws NoSuchEntityException
+     * @throws LocalizedException
      */
-    public function disableQuestion($questionId)
+    public function disableQuestion(int $questionId): void
     {
-        $question = $this->questionFactory->create();
-        $this->resource->load($question, $questionId);
+        $question = $this->repository->getById($questionId);
         $question->setStatus(0);
-        $this->resource->save($question);
+        $this->repository->save($question);
     }
 }

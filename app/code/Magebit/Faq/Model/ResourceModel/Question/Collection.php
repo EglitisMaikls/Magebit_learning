@@ -11,10 +11,6 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Model\ResourceModel\Question;
 
-/**
- * Class Collection
- * @package Magebit\Faq\Model\ResourceModel\Question
- */
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magebit\Faq\Model\Question as QuestionModel;
 use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
@@ -22,9 +18,7 @@ use Magebit\Faq\Model\ResourceModel\Question as QuestionResource;
 class Collection extends AbstractCollection
 {
     /**
-     * Define resource model
-     *
-     * @return void
+     * @inheritdoc
      */
     protected function _construct(): void
     {

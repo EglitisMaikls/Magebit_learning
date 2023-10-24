@@ -23,52 +23,44 @@ interface QuestionInterface
     /**
      * Get the ID.
      *
-     * @return int|null
+     * @return mixed
      */
-    public function getId();
+    public function getId(): mixed;
 
     /**
      * Get the question.
      *
      * @return string
      */
-    public function getQuestion();
+    public function getQuestion(): string;
 
     /**
      * Get the answer.
      *
      * @return string
      */
-    public function getAnswer();
+    public function getAnswer(): string;
 
     /**
      * Get the status.
      *
      * @return int
      */
-    public function getStatus();
+    public function getStatus(): int;
 
     /**
      * Get the position.
      *
      * @return int
      */
-    public function getPosition();
+    public function getPosition(): int;
 
     /**
      * Get the updated_at timestamp.
      *
      * @return string
      */
-    public function getUpdatedAt();
-
-    /**
-     * Set ID.
-     *
-     * @param int $id
-     * @return $this
-     */
-    public function setId($id);
+    public function getUpdatedAt(): string;
 
     /**
      * Set question.
@@ -76,7 +68,7 @@ interface QuestionInterface
      * @param string $question
      * @return $this
      */
-    public function setQuestion($question);
+    public function setQuestion(string $question): self;
 
     /**
      * Set answer.
@@ -84,7 +76,7 @@ interface QuestionInterface
      * @param string $answer
      * @return $this
      */
-    public function setAnswer($answer);
+    public function setAnswer(string $answer): self;
 
     /**
      * Set status.
@@ -92,7 +84,7 @@ interface QuestionInterface
      * @param int $status
      * @return $this
      */
-    public function setStatus($status);
+    public function setStatus(int $status): self;
 
     /**
      * Set position.
@@ -100,5 +92,5 @@ interface QuestionInterface
      * @param int $position
      * @return $this
      */
-    public function setPosition($position);
+    public function setPosition(int $position): self;
 }

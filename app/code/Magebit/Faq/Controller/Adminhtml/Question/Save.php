@@ -31,7 +31,7 @@ class Save extends Action implements HttpPostActionInterface
      */
     public function __construct(
         Context $context,
-        protected QuestionFactory $questionFactory,
+        private readonly QuestionFactory $questionFactory,
         private readonly QuestionRepositoryInterface $questionRepository
     ) {
         parent::__construct($context);
@@ -43,7 +43,7 @@ class Save extends Action implements HttpPostActionInterface
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         $data = $this->getRequest()->getPostValue();
         $id = $this->getRequest()->getParam('id');

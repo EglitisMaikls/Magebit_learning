@@ -17,22 +17,18 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
-/**
- * Class Index to display main admin page
- */
 class Index extends Action implements HttpGetActionInterface
 {
     /**
      * Constructor
      *
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $pageFactory
+     * @param Context $context
+     * @param PageFactory $pageFactory
      */
     public function __construct(
         Context $context,
-        private PageFactory $pageFactory
+        private readonly PageFactory $pageFactory
     ) {
-
         parent::__construct($context);
     }
 
@@ -46,7 +42,6 @@ class Index extends Action implements HttpGetActionInterface
         $resultPage = $this->pageFactory->create();
         $resultPage->setActiveMenu('Magento_Catalog::catalog_products');
         $resultPage->getConfig()->getTitle()->prepend(__('Frequently Asked Questions'));
-
         return $resultPage;
     }
 }

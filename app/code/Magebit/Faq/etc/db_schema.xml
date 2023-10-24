@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
---><schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="magebit_faq">
         <column xsi:type="int" name="id" identity="true" unsigned="true" nullable="false" comment="Id"/>

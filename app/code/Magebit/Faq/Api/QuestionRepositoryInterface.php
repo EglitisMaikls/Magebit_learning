@@ -13,55 +13,53 @@ namespace Magebit\Faq\Api;
 
 use Magebit\Faq\Api\Data\QuestionInterface;
 use Magebit\Faq\Api\Data\QuestionSearchResultsInterface;
-use Magento\Framework\DataObject;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 interface QuestionRepositoryInterface
 {
     /**
      * Retrieve a question by its ID.
      *
-     * @param int $questionId
-     * @return \Magebit\Faq\Api\Data\QuestionInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @param mixed $questionId
+     * @return QuestionInterface
+     * @throws NoSuchEntityException
      */
-    public function getById($questionId);
+    public function getById(mixed $questionId): QuestionInterface;
 
     /**
      * Save a question.
      *
-     * @param \Magebit\Faq\Api\Data\QuestionInterface $question
-     * @return \Magebit\Faq\Api\Data\QuestionInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param QuestionInterface $question
+     * @return void
+     * @throws LocalizedException
      */
-    public function save(QuestionInterface $question);
+    public function save(QuestionInterface $question): void;
 
     /**
      * Delete a question.
      *
-     * @param \Magebit\Faq\Api\Data\QuestionInterface $question
+     * @param QuestionInterface $question
      * @return void
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
-    public function delete(QuestionInterface $question);
+    public function delete(QuestionInterface $question): void;
 
     /**
      * Delete a question by its ID.
      *
-     * @param int $questionId
+     * @param mixed $questionId
      * @return void
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws NoSuchEntityException
      */
-    public function deleteById($questionId);
+    public function deleteById(mixed $questionId): void;
 
     /**
      * Get a list of questions matching given search criteria.
      *
-     * @param array $options
-     *     - filterField: string
-     *     - filterCondition: mixed
-     *     - orderField: string
-     *     - orderSort: string (ASC or DESC)
-     * @return DataObject []
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return QuestionSearchResultsInterface
      */
-    public function getList(array $options): array;
+    public function getList(SearchCriteriaInterface $searchCriteria): QuestionSearchResultsInterface;
 }

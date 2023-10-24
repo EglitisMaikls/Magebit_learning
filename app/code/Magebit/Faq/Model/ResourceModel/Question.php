@@ -15,11 +15,8 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class Question extends AbstractDb
 {
-
     /**
-     * Database table details
-     *
-     * @return void
+     * @inheritdoc
      */
     protected function _construct(): void
     {

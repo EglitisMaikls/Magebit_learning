@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Api;
 
+use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
+
 interface QuestionManagementInterface
 {
     /**
@@ -18,16 +22,20 @@ interface QuestionManagementInterface
      *
      * @param int $questionId
      * @return void
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws AlreadyExistsException
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
      */
-    public function enableQuestion($questionId);
+    public function enableQuestion(int $questionId): void;
 
     /**
      * Disable a question by ID.
      *
      * @param int $questionId
      * @return void
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws AlreadyExistsException
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
      */
-    public function disableQuestion($questionId);
+    public function disableQuestion(int $questionId): void;
 }

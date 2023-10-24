@@ -40,9 +40,9 @@ class InlineEdit extends Action
      * Json edit function
      *
      * @var Json $resultJson
-     * @return ResponseInterface|Json|ResultInterface
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         $resultJson = $this->jsonFactory->create();
         $error = false;

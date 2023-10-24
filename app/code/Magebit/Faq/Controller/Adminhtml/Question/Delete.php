@@ -14,11 +14,10 @@ namespace Magebit\Faq\Controller\Adminhtml\Question;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
-use Magento\Framework\Controller\Result\Redirect;
+use Magento\Framework\Controller\ResultInterface;
 
 class Delete extends Action
 {
-
     /**
      * Delete constructor
      *
@@ -35,16 +34,15 @@ class Delete extends Action
     /**
      * Delete action
      *
-     * @return Redirect
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         $id = $this->getRequest()->getParam('id');
 
         if ($id) {
             try {
-                $question = $this->questionRepository->getById($id);
-                $this->questionRepository->delete($question);
+                $this->questionRepository->deleteById($id);
                 $this->messageManager->addSuccessMessage(__('Question has been deleted.'));
 
             } catch (\Exception $e) {
