@@ -1,0 +1,42 @@
+/**
+ * @copyright Copyright (c) 2023 Magebit (https://magebit.com/)
+ * @author    <maikls.eglitis@magebit.com>
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+@color: #f0f0f0
+
+.faq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.faq-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.question {
+    background: @color;
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.answer {
+    display: none;
+    padding: 10px 10px 20px 10px;
+}
+
+input[type='checkbox'] {
+    display: none;
+}
+
+input[type='checkbox']:checked + label + .answer {
+    display: block;
+}
